@@ -1,13 +1,39 @@
 // Author:
 
 // Global UI Variables
-//let canvasDiv;
+let canvasDiv;
+let canvas;
+let textDiv;
+let textP;
+let buttonDiv;
+let uploadButton;
+let submitButton;
+let resetButton;
+// Global ML Variables 
+let mobilenet;
+let img;
 
-// Global ML Variables
-//let mobilenet;
 
 function setup() {
-
+canvasDiv = createDiv(); 
+canvas = createCanvas(640, 480);
+canvas.parent(canvasDiv);
+textDiv = createDiv();
+textP = createP("Model loading, please wait...");
+textP.parent(textDiv); 
+buttonDiv = createDiv();
+uploadButton = createFileInput(handleFile);
+uploadButton.parent(buttonDiv);
+uploadButton.style("display", "none");
+submitButton = createButton("SUBMIT");
+submitButton.parent(buttonDiv);
+submitButton.mousePressed(predictImage);
+submitButton.style("display", "none");
+resetButton = createButton("RESET");
+resetButton.parent(buttonDiv);
+resetButton.mousePressed(resetCanvas);
+resetButton.style("display", "none"); 
+mobilenet = ml5.imageClassifier("MobileNet", modelReady);
 }
 
 function draw() {
